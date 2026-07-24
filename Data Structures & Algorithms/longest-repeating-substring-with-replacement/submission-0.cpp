@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        int left = 0;
+        unordered_map<char,int>freq;
+        int maxFreq = 0;
+        int right = 0;
+        int maxLen = 0;
+
+        for(right = 0; right<s.size(); right++){
+            freq[s[right]]++;
+            maxFreq = max(maxFreq, freq[s[right]]);
+
+            if((right - left + 1) - maxFreq > k){
+                left++;
+                freq[s[left-1]]--;
+            }
+            maxLen = max(maxLen, right - left + 1);
+        }
+        return maxLen;
+    }
+};
